@@ -10,10 +10,11 @@ export class Router {
     }
 
     async handleRoute() {
-        const hash = window.location.hash.slice(1) || '/';
+        const fullHash = window.location.hash.slice(1) || '/';
+        const path = fullHash.split('?')[0];
 
         // Find matching route
-        const page = this.routes[hash] || this.routes['/'];
+        const page = this.routes[path] || this.routes['/'];
 
         if (page) {
             // Render basic HTML
@@ -34,7 +35,7 @@ export class Router {
         }
 
         // Update active nav state
-        this.updateNav(hash);
+        this.updateNav(path);
     }
 
     updateNav(hash) {

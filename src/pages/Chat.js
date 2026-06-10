@@ -1,5 +1,5 @@
 import { Navbar } from '../components/Navbar.js';
-import { sendMessageToGroq, addToConversation, getHistory } from '../services/groqApi.js';
+import { sendMessageToGroq, addToConversation, getHistory, clearConversation } from '../services/groqApi.js';
 
 export const Chat = {
     render: async () => {
@@ -92,9 +92,9 @@ export const Chat = {
         sendBtn.addEventListener('click', sendMessage);
 
         clearBtn.addEventListener('click', () => {
-            document.getElementById('messagesArea').innerHTML = '';
-            // Reset logic in groqApi needed
-            // For now just clear UI
+            messagesArea.innerHTML = '';
+            clearConversation();
+            toggleWelcome(true);
         });
 
         async function sendMessage() {
