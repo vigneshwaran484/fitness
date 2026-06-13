@@ -37,7 +37,7 @@ export async function handler(event, context) {
             };
         }
 
-        const GROQ_API_KEY = process.env.GROQ_API_KEY;
+        const GROQ_API_KEY = process.env.GROQ_API_KEY || process.env.GROQ_KEY;
         if (!GROQ_API_KEY) {
             return {
                 statusCode: 500,
