@@ -5,25 +5,45 @@ export const Chat = {
     render: async () => {
         return `
             ${Navbar.render()}
-            <div class="chat-container">
-                <div id="messagesArea" class="messages-area">
-                    <!-- Welcome State (Visible when empty) -->
-                    <div id="chatWelcome" class="chat-welcome">
-                        <div class="welcome-icon">🤖</div>
-                        <h2>Hi, Athlete!</h2>
-                        <p>I'm FitBot. How can I help you reach your goals today?</p>
-                        <div class="suggestion-chips">
-                            <button class="chip" data-query="Give me a 30-minute HIIT workout">⏱️ 30-min HIIT</button>
-                            <button class="chip" data-query="High protein breakfast ideas">🍳 High Protein Breakfast</button>
-                            <button class="chip" data-query="Explain progressive overload">📈 Progressive Overload</button>
-                            <button class="chip" data-query="How much water should I drink?">💧 Hydration Tips</button>
+            <div class="chat-wrapper">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-header-info">
+                            <span class="chat-bot-avatar">🤖</span>
+                            <div class="chat-bot-meta">
+                                <h3>FitBot</h3>
+                                <div class="chat-status">
+                                    <span class="status-dot"></span>
+                                    <span>AI Fitness Coach</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="clearChat" class="clear-btn" title="Clear Conversation">
+                            <span class="clear-icon">🗑️</span> Clear Chat
+                        </button>
+                    </div>
+                    <div id="messagesArea" class="messages-area">
+                        <!-- Welcome State (Visible when empty) -->
+                        <div id="chatWelcome" class="chat-welcome">
+                            <div class="welcome-icon">⚡</div>
+                            <h2>Unleash Your Potential</h2>
+                            <p>I am your dedicated coach for workout plans, macro breakdowns, and fitness motivation. What are we training today?</p>
+                            <div class="suggestion-chips">
+                                <button class="chip" data-query="Give me a 30-minute HIIT workout">⏱️ 30-min HIIT</button>
+                                <button class="chip" data-query="High protein breakfast ideas">🍳 High Protein Breakfast</button>
+                                <button class="chip" data-query="Explain progressive overload">📈 Progressive Overload</button>
+                                <button class="chip" data-query="How much water should I drink?">💧 Hydration Tips</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-area">
-                    <button id="clearChat" class="icon-btn" title="Clear Chat">🗑️</button>
-                    <textarea id="userInput" placeholder="Ask FitBot..." rows="1"></textarea>
-                    <button id="sendBtn" class="send-btn" disabled>➤</button>
+                    <div class="input-area">
+                        <textarea id="userInput" placeholder="Ask Coach FitBot about workouts, diet, or recipes..." rows="1"></textarea>
+                        <button id="sendBtn" class="send-btn" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
