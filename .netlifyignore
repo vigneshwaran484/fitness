@@ -1,0 +1,5 @@
+/mobile/
+node_modules/
+.git/
+.env
+config.js

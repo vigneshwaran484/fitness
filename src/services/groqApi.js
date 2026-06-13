@@ -48,25 +48,40 @@ export async function sendMessageToGroq(message) {
     // Add user message to history
     conversationHistory.push({ role: 'user', content: message });
 
+    let url = GROQ_API_URL;
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    let bodyObj = {};
+
+    if (GROQ_API_KEY) {
+        // Local dev mode: Direct call to Groq API (using the key)
+        headers['Authorization'] = `Bearer ${GROQ_API_KEY}`;
+        bodyObj = {
+            model: MODEL,
+            messages: conversationHistory,
+            temperature: 0.7,
+            max_tokens: 1024,
+            top_p: 0.9
+        };
+    } else {
+        // Production mode: Proxy via Netlify Serverless Function (key stays secure on server)
+        url = '/.netlify/functions/groq';
+        bodyObj = {
+            messages: conversationHistory
+        };
+    }
+
     try {
-        const response = await fetch(GROQ_API_URL, {
+        const response = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: MODEL,
-                messages: conversationHistory,
-                temperature: 0.7,
-                max_tokens: 1024,
-                top_p: 0.9
-            })
+            headers: headers,
+            body: JSON.stringify(bodyObj)
         });
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error?.message || `API error (${response.status})`);
+            throw new Error(errorData.error?.message || errorData.error || `API error (${response.status})`);
         }
 
         const data = await response.json();

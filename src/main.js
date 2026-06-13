@@ -1,20 +1,19 @@
-import { Router } from './router.js';
-import { Home } from './pages/Home.js';
-import { ToolsHub } from './pages/ToolsHub.js';
 import { Chat } from './pages/Chat.js';
-import { Profile } from './pages/Profile.js';
 
-// Define routes
-const routes = {
-    '/': Home,
-    '/tools': ToolsHub,
-    '/chat': Chat,
-    '/profile': Profile
-};
+async function init() {
+    const root = document.getElementById('app-root');
+    if (root) {
+        root.innerHTML = await Chat.render();
+        if (Chat.afterRender) {
+            await Chat.afterRender();
+        }
+    }
+    console.log('FitBot Web App Initialized');
+}
 
-// Initialize router on app-root div
-const router = new Router(routes, 'app-root');
-router.init();
-
-// Log successful init
-console.log('FitBot Web App Initialized');
+// Boot application
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
